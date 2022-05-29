@@ -7,3 +7,8 @@ class Signup(models.Model):
     uemail = models.EmailField()
     upass = models.CharField(max_length=50)
     udate=models.DateField()
+
+class Login(models.Model):
+    uemail = models.EmailField()
+    upass = models.CharField( max_length=50)
+

@@ -2,12 +2,12 @@ from django import forms
 from .models import Signup
 
 
-class UserRegistration(forms.Form):
-    uemail = forms.CharField(label='uemail', max_length=50)
+class UserRegistration(forms.ModelForm):
+    uemail = forms.EmailField(label='uemail')
     upass = forms.CharField(label='upass', max_length=50)
-    uname=forms.CharField(label='uname', max_length=50)
-    udate=forms.CharField(label='udate', max_length=50)
+    uname = forms.CharField(label='uname', max_length=50)
+    udate = forms.DateField(label='udate')
 
-class UserLogin(forms.Form):
-    uemail = forms.CharField(label='uemail', max_length=50)
-    upass = forms.CharField(label='upass', max_length=50)
+    class Meta:
+        model = Signup
+        fields = ('uname', 'uemail', 'upass', 'udate')

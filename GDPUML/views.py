@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import UserRegistration, UserLogin
+from .forms import UserRegistration
+from .models import Signup, Login
 
 
 # Create your views here.
@@ -16,13 +17,23 @@ def signup(request):
     if request.method == 'POST':
         form = UserRegistration(request.POST)
         if form.is_valid():
+            form.save()
+           # Signup.objects.create(uname=form.uname, uemail=form.uemail, upass=form.upass, udate=form.udate)
             return render(request, 'index.html')
         else:
             return render(request, 'index.html', {'form': form})
 
 
 def login(request):
-    return render(request, 'index.html')
+    if request.method == 'POST':
+        boj=Signup.objects.get(uemail=request.POST.get('uemail'),upass=request.POST.get('upass'))
+        if boj is not None:
+            return render(request, 'dashBoard.html')
+        else:
+            return render(request, 'index.html')
+
+
+
 
 
 def create_session(request):
