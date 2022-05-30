@@ -244,12 +244,14 @@ color: #b3b3b3;
 				<form action="login" method="post">
 				 {% csrf_token %}
 					<div class="group">
+						<span><h1>{{error.inv}}</h1></span>
+						<span><h1>{{error.inv}}</h1></span>
 					<label for="user" class="label">Username</label>
-					<input id="user" name="uname" type="text" class="input"  placeholder="Enter your username">
+					<input id="user" name="uemaill" type="text" class="input"  placeholder="Enter your username">
 				</div>
 				<div class="group">
 					<label for="pass" class="label">Password</label>
-					<input id="pass" name="upass" type="password" class="input" data-type="password" placeholder="Enter your password">
+					<input id="pass" name="upassl" type="password" class="input" data-type="password" placeholder="Enter your password">
 				</div>
 				<div class="group">
 					<input id="check" type="checkbox" class="check" checked>
@@ -273,11 +275,11 @@ color: #b3b3b3;
 				</div>
 				<div class="group">
 					<label for="pass" class="label">Password</label>
-					<input id="pass" name="upass" type="password" class="input" data-type="password" placeholder="Create your password">
+					<input id="passSi" name="upass" type="password" class="input" data-type="password" placeholder="Create your password">
 				</div>
 				<div class="group">
 					<label for="pass" class="label">Repeat Password</label>
-					<input id="pass"  type="password" class="input" data-type="password" placeholder="Repeat your password" >
+					<input id="passRep"  type="password" class="input" data-type="password" placeholder="Repeat your password" onchange="validate_pass()" >
 				</div>
 				<div class="group">
 					<label for="email" class="label">Email Address</label>
@@ -288,7 +290,7 @@ color: #b3b3b3;
 					<input id="date" name="udate" type="date" class="input" >
 				</div>
 				<div class="group">
-					<input type="submit" class="button" value="Sign Up">
+					<input type="submit" class="button" value="Sign Up" onsubmit="validate_pass()">
 				</div>
 				</form>
 				<div class="hr"></div>
@@ -335,6 +337,16 @@ var span = document.getElementsByClassName("close");
 function closeModal()
 {
 modal.style.display = "none";
+}
+
+function validate_pass()
+{
+var pass1=document.getElementById('passSi').value;
+var pass2=document.getElementById('passRep').value;
+if(pass1==pass2)
+alert("Equal");
+else
+alert("Not Equal");
 }
 
 </script>
