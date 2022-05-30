@@ -27,6 +27,8 @@ def signup(request):
             return render(request, 'index.html', {'form': form})
 
 
+
+
 def login(request):
     request.session['uname'] = ''
     if request.method == 'POST':

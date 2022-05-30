@@ -30,7 +30,23 @@ body {font-family: Arial, Helvetica, sans-serif;}
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-
+ .button{
+	text-transform:uppercase;
+}
+ .button{
+	width:100%;
+	color:#fff;
+	display:none;
+}
+.button{
+	border:none;
+	padding:15px 20px;
+	border-radius:25px;
+	background:rgba(255,255,255,.1);
+}
+.button{
+	background:#1161ee;
+}
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;
@@ -127,21 +143,19 @@ input[type=submit] {
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                	<span class="glyphicon glyphicon-fire"></span>
-                	LOGO
+                	<span class="bi bi-activity"></span>
+                	DPUML
                 </a>
             </div>
             <!-- Navbar links -->
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active">
-                        <a href="#">Home</a>
+                        <a href="#">Previous Disease</a>
                     </li>
+
                     <li>
-                        <a href="#">Products</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
+                        <a href="#contact">Contact</a>
                     </li>
                 </ul>
 
@@ -183,7 +197,7 @@ input[type=submit] {
     <section class="content"style="background-color:#6db0ea;  border-color: #fff;">
         <div class="container" >
             <div class="row">
-               <div class="col-md-4">df</div>
+               <div class="col-md-4"></div>
                 <div class="col-md-4">
                     <h3 style="color:white;">Select Symptoms</h3>
 <!--                    <input class="form-control" list="symps" name="symp" id="selectSymp">-->
@@ -197,12 +211,13 @@ input[type=submit] {
 <!--                    </datalist>-->
 
                     <div class="autocomplete" style="width:300px; float:left;">
-                        <input id="myInput" type="text" name="myCountry" placeholder="Country">
+                        <input id="myInput" type="text" name="myCountry" placeholder="Symptoms">
                     </div>
                    <input type="button" value="Add" class="btn-primary" onclick="addSymp()">
                     <div id="symptodiv"></div>
+                <div id="predict_button"><input type="button"  class="button" id="predict_btn" value="Predict"   hidden></div>
                 </div>
-                <div class="col-md-4">fdkjgkld</div>
+                <div class="col-md-4"></div>
 
             </div>
         </div>
@@ -270,7 +285,7 @@ input[type=submit] {
     <footer class="page-footer" >
 
     	<!-- Contact Us -->
-        <div class="contact"style="background-color:#024de6">
+        <div class="contact" id="contact" style="background-color:#024de6">
         	<div class="container">
 				<h2 class="section-heading">Contact Us</h2>
 				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>
@@ -472,9 +487,18 @@ var countries = ['itching','skin_rash','nodal_skin_eruptions','continuous_sneezi
 var selected_symp=[];
 function addSymp(){
  var inp=document.getElementById('myInput').value;
+ var predict_btn=document.getElementById('predict_btn');
+ if(selected_symp.length>=2 && selected_symp.length<=5)
+ {
+ predict_btn.style.display="block";
+ }
+ else{
+ predict_btn.style.display="none";
+ }
  if(selected_symp.length>=5){
  alert("Maximum 5 Value Allowed");
  return;}
+
  if(countries.indexOf(inp.toLowerCase())>-1)
  {
         selected_symp.push(inp.toLowerCase());
