@@ -246,19 +246,21 @@ color: #b3b3b3;
 					<div class="group">
 						<span><h1>{{error.inv}}</h1></span>
 						<span><h1>{{error.inv}}</h1></span>
-					<label for="user" class="label">Username</label>
-					<input id="user" name="uemaill" type="text" class="input"  placeholder="Enter your username">
+						<label  id="label_userl"></label>
+						<label for="userl" class="label">Username</label>
+					<input id="userl" name="uemaill" type="text" class="input"  placeholder="Enter your username">
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Password</label>
-					<input id="pass" name="upassl" type="password" class="input" data-type="password" placeholder="Enter your password">
+					<label  id="label_passl"></label>
+					<label for="passl" class="label">Password</label>
+					<input id="passl" name="upassl" type="password" class="input" data-type="password" placeholder="Enter your password">
 				</div>
 				<div class="group">
 					<input id="check" type="checkbox" class="check" checked>
 					<label for="check"><span class="icon"></span> Keep me Signed in</label>
 				</div>
 				<div class="group">
-					<input type="submit" class="button" value="Sign In">
+					<input type="button" class="button" value="Sign In" onclick="validate_pass()" id="log_button">
 				</div>
 				</form>
 				<div class="hr"></div>
@@ -270,27 +272,32 @@ color: #b3b3b3;
 				<form action="signup" method="post">
 				 {% csrf_token %}
 					<div class="group">
-					<label for="user" class="label">Username</label>
-					<input id="user" name="uname" type="text" class="input" placeholder="Create your Username">
+						<label   id="userSi_label" ></label>
+					<label for="userSi" class="label">Username</label>
+					<input id="userSi" name="uname" type="text" class="input" placeholder="Create your Username">
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Password</label>
+					<label   id="passSi_label" ></label>
+					<label for="passSi" class="label">Password</label>
 					<input id="passSi" name="upass" type="password" class="input" data-type="password" placeholder="Create your password">
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Repeat Password</label>
-					<input id="passRep"  type="password" class="input" data-type="password" placeholder="Repeat your password" onchange="validate_pass()" >
+					<label   id="passRep_label" ></label>
+					<label for="passRep" class="label">Repeat Password</label>
+					<input id="passRep"  type="password" class="input" data-type="password" placeholder="Repeat your password"  >
 				</div>
 				<div class="group">
-					<label for="email" class="label">Email Address</label>
-					<input id="email" name="uemail" type="email" class="input" placeholder="Enter your email address">
+					<label   id="email_label" ></label>
+					<label for="emailSi" class="label">Email Address</label>
+					<input id="emailSi" name="uemail" type="email" class="input" placeholder="Enter your email address">
 				</div>
 					<div class="group">
-					<label for="date" class="label">Email Address</label>
-					<input id="date" name="udate" type="date" class="input" >
+						<label   id="date_label" ></label>
+					<label for="dateSi" class="label">DOB</label>
+					<input id="dateSi" name="udate" type="date" class="input" >
 				</div>
 				<div class="group">
-					<input type="submit" class="button" value="Sign Up" onsubmit="validate_pass()">
+					<input type="button" class="button" value="Sign Up" id="sub_button" onclick="validate_pass()">
 				</div>
 				</form>
 				<div class="hr"></div>
@@ -341,14 +348,108 @@ modal.style.display = "none";
 
 function validate_pass()
 {
+var st=0,lst=0;
+var userl=document.getElementById('userl').value;
+var passl=document.getElementById('passl').value;
+
+var uname=document.getElementById('userSi').value;
 var pass1=document.getElementById('passSi').value;
 var pass2=document.getElementById('passRep').value;
-if(pass1==pass2)
-alert("Equal");
-else
-alert("Not Equal");
+var emailSi=document.getElementById('emailSi').value;
+var dateSi=document.getElementById('dateSi').value;
+
+
+var label_userl=document.getElementById('label_userl');
+var label_passl=document.getElementById('label_passl');
+
+var userSi_label=document.getElementById('userSi_label');
+var passSi_label=document.getElementById('passSi_label');
+var passRep_label=document.getElementById('passRep_label');
+var email_label=document.getElementById('email_label');
+var date_label=document.getElementById('date_label');
+var but=document.getElementById('sub_button');
+var butl=document.getElementById('log_button');
+userSi_label.innerHTML="";
+passSi_label.innerHTML="";
+passRep_label.innerHTML="";
+email_label.innerHTML="";
+date_label.innerHTML="";
+label_userl.innerHTML="";
+label_passl.innerHTML="";
+if(uname=='')
+{
+	userSi_label.style.color="red";
+	userSi_label.style.fontSize = "x-small";
+	userSi_label.innerHTML="Please Enter User Name";
+	st=1;
+}
+if(pass1=='')
+{
+	passSi_label.style.color="red";
+	passSi_label.style.fontSize = "x-small";
+	passSi_label.innerHTML="Please Enter Password";
+	st=1;
+}
+if(pass2=='')
+{
+
+	passRep_label.style.fontSize = "x-small";
+	passRep_label.innerHTML="Please Enter Repeated Password";
+	st=1;
 }
 
+if(pass1!=pass2)
+{
+	var passRep_label=document.getElementById('passRep_label');
+	passRep_label.style.color="red";
+	passRep_label.style.fontSize = "x-small";
+	passRep_label.innerHTML="Password and Repeat Password are not Same";
+	st=1;
+}
+
+if(emailSi=='')
+{
+	email_label.style.color="red";
+	email_label.style.fontSize = "x-small";
+	email_label.innerHTML="Please Enter Email";
+	st=1;
+}
+
+
+if(!dateSi)
+{
+	date_label.style.color="red";
+	date_label.style.fontSize = "x-small";
+	date_label.innerHTML="Please Enter DOB";
+	st=1;
+}
+
+
+
+if(userl=='')
+{
+	label_userl.style.color="red";
+	label_userl.style.fontSize = "x-small";
+	label_userl.innerHTML="Please Enter Email";
+	lst=1;
+}
+
+if(passl=='')
+{
+	label_passl.style.color="red";
+	label_passl.style.fontSize = "x-small";
+	label_passl.innerHTML="Please Enter Password";
+	lst=1;
+}
+
+if(st==0)
+{but.type="submit"
+}if(lst==0)
+{butl.type="submit"
+}
+else
+st=0;
+}
 </script>
 
 
