@@ -157,6 +157,9 @@ input[type=submit] {
                     <li>
                         <a href="#contact">Contact</a>
                     </li>
+                     <li>
+                        <a href="#">{{uname}}</a>
+                    </li>
                 </ul>
 
             </div><!-- /.navbar-collapse -->
@@ -168,7 +171,7 @@ input[type=submit] {
         <div class="header-content">
             <div class="header-content-inner">
                 <h1>Disease Prediction</h1>
-                <h1>{{uname}}</h1>
+
 
                 <p>You can know what disease you have.</p>
                 <a  href="#instruction" onclick="showIns()" style="background-color:#024de6;"  class="btn btn-primary btn-lg">Read Instruction and Start</a>
@@ -211,14 +214,17 @@ input[type=submit] {
 <!--                      <option value="Opera">-->
 <!--                      <option value="Safari">-->
 <!--                    </datalist>-->
-
+                    <form action="predict_disease" method="post">
+                     {% csrf_token %}
                     <div class="autocomplete" style="width:300px; float:left;">
                         <input id="myInput" type="text" name="myCountry" placeholder="Symptoms">
+                       <input type="text" name="currDate"   id="date1" hidden>
                     </div>
                    <input type="button" value="Add" class="btn-primary" onclick="addSymp()">
                     <div id="symptodiv"></div>
-                <div id="predict_button"><input type="button"  class="button" id="predict_btn" value="Predict"   hidden></div>
+                <div id="predict_button"><input type="submit"  class="button" id="predict_btn" value="Predict"   hidden></div>
                 </div>
+                </form>
                 <div class="col-md-4"></div>
 
             </div>
@@ -516,6 +522,11 @@ function addSymp(){
  else
  alert("NOt Found");
 }
+
+var today = new Date();
+        var p=today.getDate()+"/"+today.getMonth()+"/"+today.getFullYear();
+        document.getElementById('date1').value=p;
+
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), countries);
