@@ -12,11 +12,13 @@ def index(request):
 
 
 def dashBoard(request):
-    print(request.session.get('uname'))
-    return render(request, "dashBoard.html");
+    if request.session['uname'] is not None:
+        return render(request, "dashBoard.html", {'uname': request.session['uname']})
 
 
 def signup(request):
+    if request.session['uname'] is not None:
+        return render(request, "dashBoard.html", {'uname': request.session['uname']})
     if request.method == 'POST':
         form = UserRegistration(request.POST)
         if form.is_valid():
@@ -24,12 +26,12 @@ def signup(request):
             # Signup.objects.create(uname=form.uname, uemail=form.uemail, upass=form.upass, udate=form.udate)
             return render(request, 'index.html')
         else:
-            return render(request, 'index.html', {'form': form})
-
-
+            return render(request, 'index.html')
 
 
 def login(request):
+    if request.session['uname'] is not None:
+        return render(request, "dashBoard.html", {'uname': request.session['uname']})
     request.session['uname'] = ''
     if request.method == 'POST':
         uemail = request.POST['uemaill']
@@ -39,10 +41,9 @@ def login(request):
             request.session['uname'] = p.uname
             return render(request, 'dashBoard.html')
         else:
-            l="Invalid User Id or Password"
-            error = {'inv':l}
+            l = "Invalid User Id or Password"
+            error = {'inv': l}
             return render(request, 'index.html', error)
-
 
 
 def create_session(request):
