@@ -23,20 +23,23 @@ body{
 }
 
 .login-box{
+border-radius:20px;
+
 	width:100%;
 	margin:auto;
 	max-width:525px;
 	min-height:670px;
 	position:relative;
-	background:url(https://images.unsplash.com/photo-1507208773393-40d9fc670acf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80) no-repeat center;
 	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
 }
 .login-snip{
+
 	width:100%;
+	border-radius:20px;
 	height:100%;
 	position:absolute;
-	padding:90px 70px 50px 70px;
-	background:rgba(0, 77, 77,.9);
+	padding:40px 70px 50px 70px;
+	background:rgb(73 45 135 / 90%);
 }
 .login-snip .login,
 .login-snip .sign-up-form{
@@ -79,7 +82,7 @@ body{
 	transform-style:preserve-3d;
 }
 .login-space .group{
-	margin-bottom:15px;
+	margin-bottom:-3px;
 }
 .login-space .group .label,
 .login-space .group .input,
@@ -105,6 +108,7 @@ body{
 }
 .login-space .group .button{
 	background:#1161ee;
+	margin-bottom: -28px;
 }
 .login-space .group label .icon{
 	width:15px;
@@ -136,6 +140,7 @@ body{
 }
 .login-space .group .check:checked + label{
 	color:#fff;
+	margin-bottom: 15px;
 }
 .login-space .group .check:checked + label .icon{
 	background:#1161ee;
@@ -161,14 +166,15 @@ a{color:inherit;text-decoration:none}
 
 .hr{
 	height:2px;
-	margin:60px 0 50px 0;
+	margin:34px 0 50px 0;
 	background:rgba(255,255,255,.2);
 }
 .foot{
 	text-align:center;
 }
 .card{
-
+border-radius:20px;
+margin-top:20px;
 }
 
 ::placeholder{
@@ -190,7 +196,7 @@ color: #b3b3b3;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgb(254,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
@@ -221,21 +227,17 @@ color: #b3b3b3;
 
     </style>
 </head>
-<body  style="background-image: url({{BASE_URL}}static/images/header.jpg);" onload="load()">
+<body  style="background-image: url({{BASE_URL}}static/images/login_doctor.jpg);" onload="load()">
 
 
 
-<div id="myModal" class="modal" >
-
-  <!-- Modal content -->
-  <div class="modal-content">
 
 
-          <div class ="row">
+          <div class ="row" style="margin: auto 0px;">
 			  <div class="col-md-4"></div>
 	<div class="col-md-4 mx-auto p-0">
 		<div class="card">
-<div class="login-box">
+<div class="login-box" style="background-image: url({{BASE_URL}}static/images/login_card_image.jpg);">
 	<div class="login-snip">
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
@@ -246,14 +248,14 @@ color: #b3b3b3;
 					<div class="group">
 						<span><h1>{{error.inv}}</h1></span>
 						<span><h1>{{error.inv}}</h1></span>
-						<label  id="label_userl"></label>
 						<label for="userl" class="label">Username</label>
-					<input id="userl" name="uemaill" type="text" class="input"  placeholder="Enter your username">
-				</div>
+						<input id="userl" name="uemaill" type="text" class="input"  placeholder="Enter your username">
+						<label  id="label_userl"></label>
+					</div>
 				<div class="group">
-					<label  id="label_passl"></label>
 					<label for="passl" class="label">Password</label>
 					<input id="passl" name="upassl" type="password" class="input" data-type="password" placeholder="Enter your password">
+					<label  id="label_passl"></label>
 				</div>
 				<div class="group">
 					<input id="check" type="checkbox" class="check" checked>
@@ -272,30 +274,30 @@ color: #b3b3b3;
 				<form action="signup" method="post">
 				 {% csrf_token %}
 					<div class="group">
-						<label   id="userSi_label" ></label>
 					<label for="userSi" class="label">Username</label>
-					<input id="userSi" name="uname" type="text" class="input" placeholder="Create your Username">
-				</div>
+						<input id="userSi" name="uname" type="text" class="input" placeholder="Create your Username">
+						<label   id="userSi_label" ></label>
+					</div>
 				<div class="group">
-					<label   id="passSi_label" ></label>
 					<label for="passSi" class="label">Password</label>
 					<input id="passSi" name="upass" type="password" class="input" data-type="password" placeholder="Create your password">
+					<label   id="passSi_label" ></label>
 				</div>
 				<div class="group">
-					<label   id="passRep_label" ></label>
 					<label for="passRep" class="label">Repeat Password</label>
 					<input id="passRep"  type="password" class="input" data-type="password" placeholder="Repeat your password"  >
+					<label   id="passRep_label" ></label>
 				</div>
 				<div class="group">
-					<label   id="email_label" ></label>
 					<label for="emailSi" class="label">Email Address</label>
 					<input id="emailSi" name="uemail" type="email" class="input" placeholder="Enter your email address">
+					<label   id="email_label" ></label>
 				</div>
 					<div class="group">
-						<label   id="date_label" ></label>
 					<label for="dateSi" class="label">DOB</label>
-					<input id="dateSi" name="udate" type="date" class="input" >
-				</div>
+						<input id="dateSi" name="udate" type="date" class="input" >
+						<label   id="date_label" ></label>
+					</div>
 				<div class="group">
 					<input type="button" class="button" value="Sign Up" id="sub_button" onclick="validate_pass()">
 				</div>
@@ -313,10 +315,6 @@ color: #b3b3b3;
 			  <div class="col-md-4"></div>
 </div>
 
-      </div>
-
-
-</div>
 
 
 <script>

@@ -2,15 +2,16 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import UserRegistration
-from .models import Signup, Login
+from .models import Signup, Login, GetPrediction
 import numpy as np
 import pandas as pd
 from sklearn import tree
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 import bcrypt
-#----------------------
-#python Ml Code
+
+# ----------------------
+# python Ml Code
 
 # Training and testing datasets
 l1 = ['itching', 'skin_rash', 'nodal_skin_eruptions', 'continuous_sneezing', 'shivering', 'chills', 'joint_pain',
@@ -81,8 +82,30 @@ X_test = tr[l1]
 y_test = tr[["prognosis"]]
 np.ravel(y_test)
 
+listofDisease = []
 
-#-----------------------
+
+# -----------------------
+class sendSymptoms:
+    date1: str
+    predicted_disease: str
+    uname:str
+    s1: str
+    s2: str
+    s3: str
+    s4: str
+    s5: str
+
+    def __init__(self, uname,predicted, s1, s2, s3, s4, s5, date1="abc"):
+        self.predicted_disease = predicted
+        self.uname=uname
+        self.s1 = s1
+        self.s2 = s2
+        self.s3 = s3
+        self.s4 = s4
+        self.s5 = s5
+        self.date1 = date1
+
 
 # Create your views here.
 def index(request):
@@ -108,8 +131,6 @@ def signup(request):
 
 
 def login(request):
-    if request.session['uname'] is not None:
-        return render(request, "dashBoard.html", {'uname': request.session['uname']})
     request.session['uname'] = ''
     if request.method == 'POST':
         uemail = request.POST['uemaill']
@@ -140,5 +161,92 @@ def access_session(request):
     else:
         return redirect('create/')
 
+
 def predict_disease(request):
-    return HttpResponse("response")
+    s1 = request.POST['s1'].lower()
+    s2 = request.POST['s2'].lower()
+    s3 = request.POST['s3'].lower()
+    s4 = request.POST['s4'].lower()
+    s5 = request.POST['s5'].lower()
+    date1 = request.POST['currDate']
+    userName = request.session.get('uname')
+
+    # ML************
+    l2 = []
+    for x in range(0, len(l1)):
+        l2.append(0)
+    psymptoms = [s1, s2, s3, s4, s5]
+    for p in psymptoms:
+        print(p)
+    for k in range(0, len(l1)):
+        # print (k,)
+        for z in psymptoms:
+            if z == l1[k]:
+                l2[k] = 1
+    inputtest = [l2]
+
+    treeClassifier = tree.DecisionTreeClassifier()
+    treeClassifier = treeClassifier.fit(X, y)
+
+    predict = treeClassifier.predict(inputtest)[0]
+    print("Tree")
+    print(disease[predict])
+    dt = disease[predict]
+    # RandomForest
+    randomforestClassifier = RandomForestClassifier()
+    randomforestClassifier = randomforestClassifier.fit(X, np.ravel(y))
+
+    predict = randomforestClassifier.predict(inputtest)[0]
+    print("Random")
+    print(disease[predict])
+    rf = disease[predict]
+    # GaussianNB
+    gnb = GaussianNB()
+    gnb = gnb.fit(X, np.ravel(y))
+    predict = gnb.predict(inputtest)[0]
+    print("Gaussian")
+    print(disease[predict])
+    gb = disease[predict]
+    predic = GetPrediction.objects.create(uname=userName, s1=s1, s2=s2, s3=s3, s4=s4, s5=s5, p1=dt, p2=rf, p3=gb,
+                                          date1=date1)
+
+    if dt == rf:
+        sendSymp = sendSymptoms(dt, s1, s2, s3, s4, s5)
+        # return render(request, "result.html", {'predict': predic,'res':dt})
+    elif dt == gb:
+        sendSymp = sendSymptoms(dt, s1, s2, s3, s4, s5)
+        # return render(request, "result.html", {'predict': predic,'res':dt})
+    elif rf == gb:
+        sendSymp = sendSymptoms(rf, s1, s2, s3, s4, s5)
+        # return render(request, "result.html", {'predict': predic,'res':gb})
+    else:
+        sendSymp = sendSymptoms(gb, s1, s2, s3, s4, s5)
+    print(sendSymp.predicted_disease)
+    return render(request, "result.html", {'res': sendSymp})
+
+
+def previous_disease(request):
+    listofDisease = []
+    user = request.session.get('uname')
+    prevPred = GetPrediction.objects.filter(uname=user)
+    for i in prevPred:
+
+        if i.p1 == i.p2:
+            sendSymp = sendSymptoms(i.uname,i.p1, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
+            # return render(request, "result.html", {'predict': predic,'res':dt})
+        elif i.p1 == i.p3:
+            sendSymp = sendSymptoms(i.uname,i.p1, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
+            # return render(request, "result.html", {'predict': predic,'res':dt})
+        elif i.p2 == i.p3:
+            sendSymp = sendSymptoms(i.uname,i.p3, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
+            # return render(request, "result.html", {'predict': predic,'res':gb})
+        else:
+            sendSymp = sendSymptoms(i.uname,i.p3, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
+
+        listofDisease.append(sendSymp)
+    return render(request, "previous.html", {'lod': listofDisease})
+
+    # for x in range(len(getdiseaseofUserList)):
+    #     print getdiseaseofUserList[x]
+    # print(users.username+""+users.dt)
+    return render(request, "profile.html", {'lod': listofDisease})
