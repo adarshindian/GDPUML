@@ -248,8 +248,8 @@ color: #b3b3b3;
 					<div class="group">
 						<span><h1>{{error.inv}}</h1></span>
 						<span><h1>{{error.inv}}</h1></span>
-						<label for="userl" class="label">Username</label>
-						<input id="userl" name="uemaill" type="text" class="input"  placeholder="Enter your username">
+						<label for="userl" class="label">Email</label>
+						<input id="userl" name="uemaill" type="text" class="input"  style="text-transform:lowercase" placeholder="Enter your username">
 						<label  id="label_userl"></label>
 					</div>
 				<div class="group">
@@ -284,13 +284,13 @@ color: #b3b3b3;
 					<label   id="passSi_label" ></label>
 				</div>
 				<div class="group">
-					<label for="passRep" class="label">Repeat Password</label>
+					<label for="passRep" class="label" >Repeat Password</label>
 					<input id="passRep"  type="password" class="input" data-type="password" placeholder="Repeat your password"  >
 					<label   id="passRep_label" ></label>
 				</div>
 				<div class="group">
 					<label for="emailSi" class="label">Email Address</label>
-					<input id="emailSi" name="uemail" type="email" class="input" placeholder="Enter your email address">
+					<input id="emailSi" name="uemail" type="email" style="text-transform:lowercase" class="input" style="text-transform:lowercase" placeholder="Enter your email address">
 					<label   id="email_label" ></label>
 				</div>
 					<div class="group">
@@ -390,7 +390,7 @@ if(pass1=='')
 }
 if(pass2=='')
 {
-
+	passRep_label.style.color="red";
 	passRep_label.style.fontSize = "x-small";
 	passRep_label.innerHTML="Please Enter Repeated Password";
 	st=1;

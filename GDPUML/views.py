@@ -89,16 +89,16 @@ listofDisease = []
 class sendSymptoms:
     date1: str
     predicted_disease: str
-    uname:str
+    uname: str
     s1: str
     s2: str
     s3: str
     s4: str
     s5: str
 
-    def __init__(self, uname,predicted, s1, s2, s3, s4, s5, date1="abc"):
+    def __init__(self, uname, predicted, s1, s2, s3, s4, s5, date1="abc"):
         self.predicted_disease = predicted
-        self.uname=uname
+        self.uname = uname
         self.s1 = s1
         self.s2 = s2
         self.s3 = s3
@@ -118,8 +118,6 @@ def dashBoard(request):
 
 
 def signup(request):
-    if request.session['uname'] is not None:
-        return render(request, "dashBoard.html", {'uname': request.session['uname']})
     if request.method == 'POST':
         form = UserRegistration(request.POST)
         if form.is_valid():
@@ -132,13 +130,23 @@ def signup(request):
 
 def login(request):
     request.session['uname'] = ''
+    if request.method == 'GET':
+
+            return render(request, 'dashBoard.html')
+
+
+
+
     if request.method == 'POST':
         uemail = request.POST['uemaill']
         upass = request.POST['upassl']
         p = Signup.objects.raw('SELECT *  FROM gdpuml_signup where uemail=%s', [uemail])[0]
         if (p.uemail == uemail and p.upass == upass):
             request.session['uname'] = p.uname
-            return render(request, 'dashBoard.html')
+            context = {
+                'uname': p.uname
+            }
+            return render(request, 'dashBoard.html', context)
         else:
             l = "Invalid User Id or Password"
             error = {'inv': l}
@@ -211,16 +219,16 @@ def predict_disease(request):
                                           date1=date1)
 
     if dt == rf:
-        sendSymp = sendSymptoms(dt, s1, s2, s3, s4, s5)
+        sendSymp = sendSymptoms(userName, dt, s1, s2, s3, s4, s5, date1)
         # return render(request, "result.html", {'predict': predic,'res':dt})
     elif dt == gb:
-        sendSymp = sendSymptoms(dt, s1, s2, s3, s4, s5)
+        sendSymp = sendSymptoms(userName, dt, s1, s2, s3, s4, s5, date1)
         # return render(request, "result.html", {'predict': predic,'res':dt})
     elif rf == gb:
-        sendSymp = sendSymptoms(rf, s1, s2, s3, s4, s5)
+        sendSymp = sendSymptoms(userName, rf, s1, s2, s3, s4, s5, date1)
         # return render(request, "result.html", {'predict': predic,'res':gb})
     else:
-        sendSymp = sendSymptoms(gb, s1, s2, s3, s4, s5)
+        sendSymp = sendSymptoms(userName, gb, s1, s2, s3, s4, s5, date1)
     print(sendSymp.predicted_disease)
     return render(request, "result.html", {'res': sendSymp})
 
@@ -232,16 +240,16 @@ def previous_disease(request):
     for i in prevPred:
 
         if i.p1 == i.p2:
-            sendSymp = sendSymptoms(i.uname,i.p1, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
+            sendSymp = sendSymptoms(i.uname, i.p1, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
             # return render(request, "result.html", {'predict': predic,'res':dt})
         elif i.p1 == i.p3:
-            sendSymp = sendSymptoms(i.uname,i.p1, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
+            sendSymp = sendSymptoms(i.uname, i.p1, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
             # return render(request, "result.html", {'predict': predic,'res':dt})
         elif i.p2 == i.p3:
-            sendSymp = sendSymptoms(i.uname,i.p3, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
+            sendSymp = sendSymptoms(i.uname, i.p3, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
             # return render(request, "result.html", {'predict': predic,'res':gb})
         else:
-            sendSymp = sendSymptoms(i.uname,i.p3, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
+            sendSymp = sendSymptoms(i.uname, i.p3, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
 
         listofDisease.append(sendSymp)
     return render(request, "previous.html", {'lod': listofDisease})
