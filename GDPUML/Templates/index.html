@@ -234,7 +234,7 @@ color: #b3b3b3;
 
 
           <div class ="row" style="margin: auto 0px;">
-			  <div class="col-md-4"><h1>{{inv}}</h1></div>
+			  <div class="col-md-4"><h1>{{inv.err}}</h1></div>
 	<div class="col-md-4 mx-auto p-0">
 		<div class="card">
 <div class="login-box" style="background-image: url({{BASE_URL}}static/images/login_card_image.jpg);">
@@ -247,8 +247,8 @@ color: #b3b3b3;
 				 {% csrf_token %}
 					<div class="group">
 						<span><h1></h1></span>
-						<span><h1>{{inv}}</h1></span>
-						<label for="userl" class="label">Email</label>
+						<span><h1>{{inv.err}}</h1></span>
+						<label for="userl" class="label">Email{{inv.err}}</label>
 						<input id="userl" name="uemaill" type="text" class="input"  style="text-transform:lowercase" placeholder="Enter your username">
 						<label  id="label_userl"></label>
 					</div>

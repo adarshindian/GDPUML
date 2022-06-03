@@ -87,12 +87,13 @@ listofDisease = []
 
 # -----------------------
 class temp:
-    uname:str
-    l:[]
+    uname: str
+    l: []
 
-    def __init__(self, uname,l):
-        self.uname=uname
-        self.l=l
+    def __init__(self, uname, l):
+        self.uname = uname
+        self.l = l
+
 
 class sendSymptoms:
     date1: str
@@ -115,13 +116,20 @@ class sendSymptoms:
         self.date1 = date1
 
 
+class Error:
+    err: str
+
+    def __init__(self, err):
+        self.err = err
+
+
 # Create your views here.
 def index(request):
     return render(request, "index.html")
 
 
 def dashBoard(request):
-        return render(request, "dashBoard.html", {'uname': request.session['uname']})
+    return render(request, "dashBoard.html", {'uname': request.session['uname']})
 
 
 def signup(request):
@@ -138,8 +146,8 @@ def signup(request):
 def login(request):
     context = {
         'uname': request.session.get('uname')}
-    if request.method=='GET':
-       return render(request, 'dashBoard.html',context)
+    if request.method == 'GET':
+        return render(request, 'dashBoard.html', context)
     if request.method == 'POST':
         uemail = request.POST['uemaill']
         upass = request.POST['upassl']
@@ -151,10 +159,10 @@ def login(request):
                 context = {
                     'uname': request.session.get('uname')
                 }
-                return render(request, 'dashBoard.html',context)
+                return render(request, 'dashBoard.html', context)
             else:
-                inv={'inv':"Invalid Email or Password"}
-                return render(request, 'index.html',inv)
+                inv = Error("Invalid Email or Password")
+                return render(request, 'index.html', {'inv': inv})
         except  IndexError as e:
             return render(request, 'index.html')
 
@@ -258,9 +266,8 @@ def previous_disease(request):
             sendSymp = sendSymptoms(i.uname, i.p3, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
 
         listofDisease.append(sendSymp)
-    sended=temp(user,listofDisease)
+    sended = temp(user, listofDisease)
     return render(request, "previous.html", {'lod': sended})
     # for x in range(len(getdiseaseofUserList)):
     #     print getdiseaseofUserList[x]
     # print(users.username+""+users.dt)
-
