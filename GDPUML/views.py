@@ -86,6 +86,14 @@ listofDisease = []
 
 
 # -----------------------
+class temp:
+    uname:str
+    l:[]
+
+    def __init__(self, uname,l):
+        self.uname=uname
+        self.l=l
+
 class sendSymptoms:
     date1: str
     predicted_disease: str
@@ -113,7 +121,6 @@ def index(request):
 
 
 def dashBoard(request):
-    if request.session['uname'] is not None:
         return render(request, "dashBoard.html", {'uname': request.session['uname']})
 
 
@@ -129,28 +136,27 @@ def signup(request):
 
 
 def login(request):
-    request.session['uname'] = ''
-    if request.method == 'GET':
-
-            return render(request, 'dashBoard.html')
-
-
-
-
+    context = {
+        'uname': request.session.get('uname')}
+    if request.method=='GET':
+       return render(request, 'dashBoard.html',context)
     if request.method == 'POST':
         uemail = request.POST['uemaill']
         upass = request.POST['upassl']
-        p = Signup.objects.raw('SELECT *  FROM gdpuml_signup where uemail=%s', [uemail])[0]
-        if (p.uemail == uemail and p.upass == upass):
-            request.session['uname'] = p.uname
-            context = {
-                'uname': p.uname
-            }
-            return render(request, 'dashBoard.html', context)
-        else:
-            l = "Invalid User Id or Password"
-            error = {'inv': l}
-            return render(request, 'index.html', error)
+        try:
+            p = Signup.objects.raw('SELECT *  FROM gdpuml_signup where uemail=%s', [uemail])[0]
+            print(p.uemail)
+            if (p.uemail == uemail and p.upass == upass):
+                request.session['uname'] = p.uname
+                context = {
+                    'uname': request.session.get('uname')
+                }
+                return render(request, 'dashBoard.html',context)
+            else:
+                inv={'inv':"Invalid Email or Password"}
+                return render(request, 'index.html',inv)
+        except  IndexError as e:
+            return render(request, 'index.html')
 
 
 def create_session(request):
@@ -252,9 +258,9 @@ def previous_disease(request):
             sendSymp = sendSymptoms(i.uname, i.p3, i.s1, i.s2, i.s3, i.s4, i.s5, i.date1)
 
         listofDisease.append(sendSymp)
-    return render(request, "previous.html", {'lod': listofDisease})
-
+    sended=temp(user,listofDisease)
+    return render(request, "previous.html", {'lod': sended})
     # for x in range(len(getdiseaseofUserList)):
     #     print getdiseaseofUserList[x]
     # print(users.username+""+users.dt)
-    return render(request, "profile.html", {'lod': listofDisease})
+

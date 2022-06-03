@@ -239,7 +239,7 @@ header .header-content .header-content-inner p {
     }
 
     .navbar-default .navbar-header .navbar-brand {
-        color: rgba(255,255,255,.7);
+        color: rgba(255,255,255,1);
         letter-spacing: 0.5em;
     }
 
@@ -250,7 +250,7 @@ header .header-content .header-content-inner p {
 
     .navbar-default .nav > li>a,
     .navbar-default .nav>li>a:focus {
-        color: rgba(255,255,255,.7);
+        color: rgba(255,255,255,1);
     }
 
     .navbar-default .nav > li>a:hover,
@@ -393,6 +393,7 @@ fieldset[disabled] .btn-primary.active {
 
 
 .btn {
+    margin-top:20px;
     border-radius: 300px;
     text-transform: uppercase;
 }

@@ -148,8 +148,6 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
 </style>
 </head>
 <body onload="load()">
-
-
  <nav id="siteNav" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Logo and responsive toggle -->
@@ -160,9 +158,9 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'dashBoard' %}" title="Disease Prediction Using Machine Learning">
+                <a class="navbar-brand" href="{% url 'dashBoard' %}" title="General Disease Prediction System">
                 	<span class="bi bi-activity"></span>
-                	DPUML
+                	GDPS
                 </a>
             </div>
             <!-- Navbar links -->
@@ -176,7 +174,7 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
                         <a href="#contact">Contact</a>
                     </li>
                      <li>
-                        <a href="#"></a>
+                        <a href="#">{{lod.uname}}</a>
                     </li>
                 </ul>
 
@@ -224,7 +222,7 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
                     <h1>Past Disease</h1>
                  <table class="table table-striped">
                    <tr><th>Symptoms 1 </th><th>Symptoms 2 </th><th>Symptoms 3 </th><th>Symptoms 4 </th><th>Symptoms 5 </th></th><th>Disease</th></th><th>Date</th></tr>
-                  {% for i in lod %}
+                  {% for i in lod.l %}
                   <tr>
                       <td>{{i.s1}}</td>
                       <td>{{i.s2}}</td>
@@ -304,18 +302,25 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
     <footer class="page-footer" >
 
     	<!-- Contact Us -->
-        <div class="contact" id="contact" style="background-color:#1e90ff">
-        	<div class="container">
-				<h2 class="section-heading">Contact Us</h2>
-				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>
-				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>
-        	</div>
-        </div>
+<!--        <div class="contact" id="contact" style="background-color:#1e90ff">-->
+<!--        	<div class="container">-->
+<!--				<h2 class="section-heading">Contact Us</h2>-->
+<!--				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>-->
+<!--				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>-->
+<!--        	</div>-->
+<!--        </div>-->
 
         <!-- Copyright etc -->
         <div class="small-print" style="background-color:#1e90ff;">
         	<div class="container">
+                  <div class="small-print"  id="contact"style="background-color:#1e90ff;">
+        	<div class="container" style="color:white;">
+                	<h2 class="section-heading">Contact Us</h2>
+				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>
+				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>
         		<p>Copyright &copy; IET CSE</p>
+        	</div>
+        </div>
         	</div>
         </div>
 

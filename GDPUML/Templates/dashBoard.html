@@ -157,9 +157,9 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#" title="Disease Prediction Using Machine Learning">
+                <a class="navbar-brand" href="#" title="General Disease Prediction System">
                 	<span class="bi bi-activity"></span>
-                	DPUML
+                	GDPS
                 </a>
             </div>
             <!-- Navbar links -->
@@ -173,7 +173,7 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
                         <a href="#contact">Contact</a>
                     </li>
                      <li>
-                        <a href="#"></a>
+                        <a href="#">{{uname}}</a>
                     </li>
                 </ul>
 
@@ -205,7 +205,6 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
 
                         <h4>Please enter your most affected symptoms for better Prediction</h4>
                         <h4>You have to enter at least 3 symptoms and at most 5.</h4>
-                        <h4>You have to ccc hdsifhedshgjkd jkhgjds enter at least 3 symptoms and at most 5.</h4>
 
 
                 </div>
@@ -228,7 +227,7 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
                         <div id="inp_box"></div>
                    <input type="button" value="Add" style="border-radius:4px; margin-left:3px;" class="btn-primary" onclick="addSymp()">
 
-                <div id="predict_button"><input type="submit"  class="button" id="predict_btn" value="Predict"   hidden></div>
+                <div id="predict_button"><input type="submit"  style="margin-top:20px" class="button" id="predict_btn" value="Predict"   hidden></div>
 
                 </form>
 
@@ -319,27 +318,30 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
     <footer class="page-footer" >
 
     	<!-- Contact Us -->
-        <div class="contact" id="contact" style="background-color:#1e90ff">
-        	<div class="container">
-				<h2 class="section-heading">Contact Us</h2>
-                <div class="col-md-4">
+<!--        <div class="contact" id="contact" style="background-color:#1e90ff">-->
+<!--        	<div class="container">-->
+<!--				<h2 class="section-heading">Contact Us</h2>-->
+<!--                <div class="col-md-4">-->
+<!--&lt;!&ndash;				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>&ndash;&gt;-->
+<!--&lt;!&ndash;				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>&ndash;&gt;-->
+<!--                </div>-->
+<!--                 <div class="col-md-4">-->
 <!--				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>-->
 <!--				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>-->
-                </div>
-                 <div class="col-md-4">
-				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>
-				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>
-                </div>
-                 <div class="col-md-4">
-<!--				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>-->
-<!--				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>-->
-                </div>
-        	</div>
-        </div>
+<!--                </div>-->
+<!--                 <div class="col-md-4">-->
+<!--&lt;!&ndash;				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>&ndash;&gt;-->
+<!--&lt;!&ndash;				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>&ndash;&gt;-->
+<!--                </div>-->
+<!--        	</div>-->
+<!--        </div>-->
 
         <!-- Copyright etc -->
-        <div class="small-print" style="background-color:#1e90ff;">
-        	<div class="container">
+         <div class="small-print"  id="contact"style="background-color:#1e90ff;">
+        	<div class="container" style="color:white;">
+                	<h2 class="section-heading">Contact Us</h2>
+				<p><span class="glyphicon glyphicon-earphone"></span><br>8604105752</p>
+				<p><span class="glyphicon glyphicon-envelope"></span><br> adarshpro43@gmail.com</p>
         		<p>Copyright &copy; IET CSE</p>
         	</div>
         </div>
@@ -356,7 +358,8 @@ text-shadow: 4px 2px 1px black, 0 0 1em blue, 0 0 0.2em blue;
       <h2>Read Carefully</h2>
       <div class="colo-md-12">
           <p>
-              <ul>
+              <ul style="font-size: 20px;
+    font-family: sans-serif;">
                     <li>This websites model gives only Prediction..</li>
                     <li>There is no Interaction of Human in all Process.</li>
                     <li>The accuracy of the disease depend upon symptoms provided by you.</li>
