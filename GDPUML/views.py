@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -134,14 +135,20 @@ def dashBoard(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserRegistration(request.POST)
-        if form.is_valid():
-            p=form.save()
-            print(p)
-            # Signup.objects.create(uname=form.uname, uemail=form.uemail, upass=form.upass, udate=form.udate)
-            return render(request, 'index.html')
-        else:
-            return render(request, 'index.html')
+            form = UserRegistration(request.POST)
+            if form.is_valid():
+                try:
+                    p=form.save()
+                except IntegrityError as ee:
+                    invs = Error("UserName or Email already Exist")
+                    return render(request, 'index.html', {'invs': invs})
+                print(p)
+                # Signup.objects.create(uname=form.uname, uemail=form.uemail, upass=form.upass, udate=form.udate)
+                return render(request, 'index.html')
+            else:
+                return render(request, 'index.html')
+
+
 
 
 def login(request):

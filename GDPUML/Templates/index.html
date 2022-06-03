@@ -240,7 +240,7 @@ color: #b3b3b3;
 <div class="login-box" style="background-image: url({{BASE_URL}}static/images/login_card_image.jpg);">
 	<div class="login-snip">
 
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label>
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked ><label for="tab-1" class="tab">Login</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
 		<div class="login-space">
 			<div class="login">
@@ -274,6 +274,7 @@ color: #b3b3b3;
 				<form action="signup" method="post">
 				 {% csrf_token %}
 					<div class="group">
+						<span><h1><div style="color:white;" id="singer">{{invs.err}}</div></h1></span>
 					<label for="userSi" class="label">Username</label>
 						<input id="userSi" name="uname" type="text" class="input" placeholder="Create your Username">
 						<label   id="userSi_label" ></label>
@@ -319,7 +320,8 @@ color: #b3b3b3;
 
 <script>
 	function load() {
-  modal.style.display = "block";
+
+  return true;
 }
 
 function showIns()
