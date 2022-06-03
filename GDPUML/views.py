@@ -136,7 +136,8 @@ def signup(request):
     if request.method == 'POST':
         form = UserRegistration(request.POST)
         if form.is_valid():
-            form.save()
+            p=form.save()
+            print(p)
             # Signup.objects.create(uname=form.uname, uemail=form.uemail, upass=form.upass, udate=form.udate)
             return render(request, 'index.html')
         else:
@@ -144,17 +145,16 @@ def signup(request):
 
 
 def login(request):
-    context = {
-        'uname': request.session.get('uname')}
-    if request.method == 'GET':
-        return render(request, 'dashBoard.html', context)
     if request.method == 'POST':
         uemail = request.POST['uemaill']
         upass = request.POST['upassl']
         try:
+            d=Signup.objects.filter(uemail=uemail,upass=upass).count();
+            print(d)
+            #print(d is not None)
             p = Signup.objects.raw('SELECT *  FROM gdpuml_signup where uemail=%s', [uemail])[0]
-            print(p.uemail)
-            if (p.uemail == uemail and p.upass == upass):
+            #print(type(p))
+            if (d ==1):
                 request.session['uname'] = p.uname
                 context = {
                     'uname': request.session.get('uname')
@@ -164,7 +164,8 @@ def login(request):
                 inv = Error("Invalid Email or Password")
                 return render(request, 'index.html', {'inv': inv})
         except  IndexError as e:
-            return render(request, 'index.html')
+            inv = Error("Invalid Email or Password")
+            return render(request, 'index.html', {'inv': inv})
 
 
 def create_session(request):
