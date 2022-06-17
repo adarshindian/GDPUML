@@ -1,2 +1,2 @@
 web: python manage.py collectstatic --no-input;
-web: gunicorn FinalProject.wsgi
+web: gunicorn GDPUML.wsgi
